@@ -1,0 +1,16 @@
+trigger:
+  - main  # or your default branch
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'azureportalsvcc'  # Replace with your Azure service connection name
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        echo "Showing current Azure account..."
+        az account show
+    displayName: 'List Azure Account'
