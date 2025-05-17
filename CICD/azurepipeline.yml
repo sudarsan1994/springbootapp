@@ -71,4 +71,4 @@ stages:
               scriptLocation: inlineScript
               inlineScript: |
                 az aks get-credentials --resource-group $(aksResourceGroup) --name $(aksClusterName) --overwrite-existing
-                kubectl set image deployment/$(kubernetesDeploymentName) $(imageRepository)=$(containerRegistry)/$(imageRepository):$(tag) -n $(kubernetesNamespace)
+                kubectl set image deployment/$(kubernetesDeploymentName) springboot-container=$(containerRegistry)/$(imageRepository):$(tag) -n $(kubernetesNamespace)
