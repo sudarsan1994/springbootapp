@@ -26,8 +26,6 @@ stages:
           vmImage: 'ubuntu-latest'
         steps:
           - checkout: self
-          - script: ./gradlew build
-            displayName: 'Build Spring Boot application'
           - task: Docker@2
             displayName: Build and Push Docker image
             inputs:
