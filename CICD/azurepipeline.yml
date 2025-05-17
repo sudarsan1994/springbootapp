@@ -55,7 +55,7 @@ stages:
             displayName: Deploy manifests
             inputs:
               connectionType: 'Azure Resource Manager'
-              azureSubscription: $(azureSubscription)
+              azureSubscriptionEndpoint: $(azureSubscription)
               azureResourceGroup: $(aksResourceGroup)
               kubernetesCluster: $(aksClusterName)
               namespace: $(kubernetesNamespace)
