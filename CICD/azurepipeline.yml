@@ -15,7 +15,7 @@ variables:
   aksClusterName: 'k8ssringbootapp'
   kubernetesNamespace: 'default'
   kubernetesDeploymentName: 'springboot-app'
-  manifestPath: 'manifests/deployment.yaml'
+  manifestPath: 'CICD/k8s/deployment.yaml'
 
 stages:
   - stage: Build
