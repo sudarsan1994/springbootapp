@@ -4,7 +4,7 @@ trigger:
       - master
 
 variables:
-  dockerRegistryServiceConnection: 'spforacr'  # DockerHub or ACR connection
+  dockerRegistryServiceConnection: 'devopstoportalconnection'  # DockerHub or ACR connection
   imageRepository: 'sudarshan1994/springbootaapp1'
   containerRegistry: 'acrsringbootapp.azurecr.io'
   dockerfilePath: 'Dockerfile'
