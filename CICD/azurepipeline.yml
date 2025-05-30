@@ -9,13 +9,16 @@ variables:
   containerRegistry: 'acrsringbootapp1.azurecr.io'
   dockerfilePath: 'Dockerfile'
   tag: '$(Build.BuildId)'
-  ingressNamespace: 'ingress-nginx'
+
   azureSubscription: 'devopstoportalconnection'  # Azure Resource Manager service connection
   aksResourceGroup: 'springbootapp-rg'
-  aksClusterName: 'k8ssringbootapp'              # ✅ Your actual AKS cluster name
+  aksClusterName: 'k8ssringbootapp'
   kubernetesNamespace: 'default'
+  ingressNamespace: 'ingress-nginx'
   kubernetesDeploymentName: 'springboot-app'
-  manifestPath: 'CICD/k8s/*'
+
+  appManifestPath: 'CICD/k8s/app/*'
+  ingressManifestPath: 'CICD/k8s/ingress/*'
 
 stages:
   - stage: Build
@@ -54,16 +57,28 @@ stages:
           vmImage: 'ubuntu-latest'
         steps:
           - task: Kubernetes@1
-            displayName: Deploy manifests
+            displayName: Deploy application manifests to default namespace
             inputs:
               connectionType: 'Azure Resource Manager'
               azureSubscriptionEndpoint: $(azureSubscription)
               azureResourceGroup: $(aksResourceGroup)
               kubernetesCluster: $(aksClusterName)
-              namespace: $(ingress-nginx')
+              namespace: $(kubernetesNamespace)
               command: apply
               useClusterAdmin: true
-              arguments: '-f $(manifestPath)'
+              arguments: '-f $(appManifestPath)'
+
+          - task: Kubernetes@1
+            displayName: Deploy ingress manifests to ingress-nginx namespace
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscriptionEndpoint: $(azureSubscription)
+              azureResourceGroup: $(aksResourceGroup)
+              kubernetesCluster: $(aksClusterName)
+              namespace: $(ingressNamespace)
+              command: apply
+              useClusterAdmin: true
+              arguments: '-f $(ingressManifestPath)'
 
           - task: AzureCLI@2
             displayName: Set image in deployment
