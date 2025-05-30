@@ -4,7 +4,7 @@ trigger:
       - master
 
 variables:
-  dockerRegistryServiceConnection: 'svcfromdevopstoacr'  # DockerHub or ACR connection
+  dockerRegistryServiceConnection: 'svcfromdevopstoacr'  # ACR or DockerHub service connection
   imageRepository: 'sudarshan1994/springbootaapp1'
   containerRegistry: 'acrsringbootapp1.azurecr.io'
   dockerfilePath: 'Dockerfile'
@@ -12,7 +12,7 @@ variables:
 
   azureSubscription: 'devopstoportalconnection'  # Azure Resource Manager service connection
   aksResourceGroup: 'springbootapp-rg'
-  aksClusterName: 'k8ssringbootapp'
+  aksClusterName: 'k8ssringbootapp'              # ✅ Your actual AKS cluster name
   kubernetesNamespace: 'default'
   kubernetesDeploymentName: 'springboot-app'
   manifestPath: 'CICD/k8s/*'
@@ -26,12 +26,14 @@ stages:
           vmImage: 'ubuntu-latest'
         steps:
           - checkout: self
+
           - task: Gradle@3
             displayName: Build Spring Boot JAR
             inputs:
               gradleWrapperFile: 'gradlew'
               tasks: 'clean build'
               publishJUnitResults: false
+
           - task: Docker@2
             displayName: Build and Push Docker image
             inputs:
@@ -56,9 +58,9 @@ stages:
             inputs:
               connectionType: 'Azure Resource Manager'
               azureSubscriptionEndpoint: $(azureSubscription)
-              azureResourceGroup: $(springbootapp-rg)
-              kubernetesCluster: $(k8ssringbootapp)
-              namespace: $(default)
+              azureResourceGroup: $(aksResourceGroup)
+              kubernetesCluster: $(aksClusterName)
+              namespace: $(kubernetesNamespace)
               command: apply
               useClusterAdmin: true
               arguments: '-f $(manifestPath)'
