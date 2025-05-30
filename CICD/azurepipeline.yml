@@ -6,7 +6,7 @@ trigger:
 variables:
   dockerRegistryServiceConnection: 'svcfromdevopstoacr'  # DockerHub or ACR connection
   imageRepository: 'sudarshan1994/springbootaapp1'
-  containerRegistry: 'acrsringbootapp.azurecr.io'
+  containerRegistry: 'acrsringbootapp1.azurecr.io'
   dockerfilePath: 'Dockerfile'
   tag: '$(Build.BuildId)'
 
