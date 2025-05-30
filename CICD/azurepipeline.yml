@@ -9,7 +9,7 @@ variables:
   containerRegistry: 'acrsringbootapp1.azurecr.io'
   dockerfilePath: 'Dockerfile'
   tag: '$(Build.BuildId)'
-
+  ingressNamespace: 'ingress-nginx'
   azureSubscription: 'devopstoportalconnection'  # Azure Resource Manager service connection
   aksResourceGroup: 'springbootapp-rg'
   aksClusterName: 'k8ssringbootapp'              # ✅ Your actual AKS cluster name
