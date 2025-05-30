@@ -60,7 +60,7 @@ stages:
               azureSubscriptionEndpoint: $(azureSubscription)
               azureResourceGroup: $(aksResourceGroup)
               kubernetesCluster: $(aksClusterName)
-              namespace: $(kubernetesNamespace)
+              namespace: $(ingress-nginx')
               command: apply
               useClusterAdmin: true
               arguments: '-f $(manifestPath)'
