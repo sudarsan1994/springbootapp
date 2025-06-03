@@ -17,8 +17,8 @@ variables:
   ingressNamespace: 'ingress-nginx'
   kubernetesDeploymentName: 'springboot-app'
 
-  appManifestPath: 'CICD/k8s/app/*'
-  ingressManifestPath: 'CICD/k8s/ingress/*'
+  appManifestPath: 'CICD/k8s/*'
+  ingressManifestPath: 'CICD/k8s/*'
 
 stages:
   - stage: Build
