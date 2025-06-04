@@ -14,11 +14,11 @@ variables:
   aksResourceGroup: 'springbootapp-rg'
   aksClusterName: 'k8ssringbootapp'
   kubernetesNamespace: 'default'
-  #ingressNamespace: 'default'
+  ingressNamespace: 'default'
   kubernetesDeploymentName: 'springboot-app'
 
   appManifestPath: 'CICD/k8s/*'
-  #ingressManifestPath: 'CICD/k8s/*'
+  ingressManifestPath: 'CICD/k8s/*'
 
 stages:
   - stage: Build
