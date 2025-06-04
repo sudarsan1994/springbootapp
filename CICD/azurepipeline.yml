@@ -14,11 +14,11 @@ variables:
   aksResourceGroup: 'springbootapp-rg'
   aksClusterName: 'k8ssringbootapp'
   kubernetesNamespace: 'default'
-  ingressNamespace: 'default'
+  #ingressNamespace: 'default'
   kubernetesDeploymentName: 'springboot-app'
 
   appManifestPath: 'CICD/k8s/*'
-  ingressManifestPath: 'CICD/k8s/*'
+  #ingressManifestPath: 'CICD/k8s/*'
 
 stages:
   - stage: Build
@@ -66,7 +66,7 @@ stages:
               namespace: $(kubernetesNamespace)
               command: apply
               useClusterAdmin: true
-              arguments: '-f $(appManifestPath) --namespace=ingress-nginx'
+              arguments: '-f $(appManifestPath)'
 
           - task: Kubernetes@1
             displayName: Deploy ingress manifests to ingress-nginx namespace
