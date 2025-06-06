@@ -9,6 +9,7 @@ variables:
   containerRegistry: 'acrsringbootapp1.azurecr.io'
   dockerfilePath: 'Dockerfile'
   tag: '$(Build.BuildId)'
+  
   azureSubscription: 'devopstoportalconnection'  # Azure Resource Manager service connection
   aksResourceGroup: 'springbootapp-rg'
   aksClusterName: 'k8ssringbootapp'
