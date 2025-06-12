@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: my-service-lb
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: "springboot-rg"
+    service.beta.kubernetes.io/azure-load-balancer-ipv4: "135.237.57.52"
 spec:
   selector:
     app: springboot-app

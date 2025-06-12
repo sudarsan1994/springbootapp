@@ -1,47 +1,41 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-  name: ingress-nginx
----
-apiVersion: v1
 automountServiceAccountToken: true
 kind: ServiceAccount
 metadata:
+  namespace: default
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx
-  namespace: ingress-nginx
+  name: default
+  
 ---
 apiVersion: v1
 kind: ServiceAccount
+
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission
-  namespace: ingress-nginx
+  name: default-admission
+  
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx
-  namespace: ingress-nginx
+  name: default
+  
 rules:
   - apiGroups:
       - ""
@@ -93,7 +87,7 @@ rules:
   - apiGroups:
       - coordination.k8s.io
     resourceNames:
-      - ingress-nginx-leader
+      - default-leader
     resources:
       - leases
     verbs:
@@ -126,12 +120,12 @@ kind: Role
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission
-  namespace: ingress-nginx
+  name: default-admission
+  
 rules:
   - apiGroups:
       - ""
@@ -145,11 +139,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx
+  name: default
 rules:
   - apiGroups:
       - ""
@@ -227,11 +221,11 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission
+  name: default-admission
 rules:
   - apiGroups:
       - admissionregistration.k8s.io
@@ -246,77 +240,80 @@ kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx
-  namespace: ingress-nginx
+  name: default
+  
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: ingress-nginx
+  name: default
 subjects:
   - kind: ServiceAccount
-    name: ingress-nginx
-    namespace: ingress-nginx
+    name: default
+    namespace: default
+    
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission
-  namespace: ingress-nginx
+  name: default-admission
+  
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: ingress-nginx-admission
+  name: default-admission
 subjects:
   - kind: ServiceAccount
-    name: ingress-nginx-admission
-    namespace: ingress-nginx
+    name: default-admission
+    namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx
+  name: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: ingress-nginx
+  name: default
 subjects:
   - kind: ServiceAccount
-    name: ingress-nginx
-    namespace: ingress-nginx
+    name: default
+    namespace: default
+    
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission
+  name: default-admission
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: ingress-nginx-admission
+  name: default-admission
 subjects:
   - kind: ServiceAccount
-    name: ingress-nginx-admission
-    namespace: ingress-nginx
+    name: default-admission
+    namespace: default
+    
 ---
 apiVersion: v1
 data:
@@ -325,24 +322,24 @@ kind: ConfigMap
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-controller
-  namespace: ingress-nginx
+  name: default-controller
+  
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-controller
-  namespace: ingress-nginx
+  name: default-controller
+  
 spec:
   externalTrafficPolicy: Local
   ipFamilies:
@@ -361,8 +358,8 @@ spec:
       targetPort: https
   selector:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
   type: LoadBalancer
 ---
 apiVersion: v1
@@ -370,12 +367,12 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-controller-admission
-  namespace: ingress-nginx
+  name: default-controller-admission
+  
 spec:
   ports:
     - appProtocol: https
@@ -384,8 +381,8 @@ spec:
       targetPort: webhook
   selector:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -393,20 +390,20 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-controller
-  namespace: ingress-nginx
+  name: default-controller
+  
 spec:
   minReadySeconds: 0
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/component: controller
-      app.kubernetes.io/instance: ingress-nginx
-      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/instance: default
+      app.kubernetes.io/name: default
   strategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -415,19 +412,19 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/component: controller
-        app.kubernetes.io/instance: ingress-nginx
-        app.kubernetes.io/name: ingress-nginx
-        app.kubernetes.io/part-of: ingress-nginx
+        app.kubernetes.io/instance: default
+        app.kubernetes.io/name: default
+        app.kubernetes.io/part-of: default
         app.kubernetes.io/version: 1.9.4
     spec:
       containers:
         - args:
             - /nginx-ingress-controller
-            - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller
-            - --election-id=ingress-nginx-leader
-            - --controller-class=k8s.io/ingress-nginx
+            - --publish-service=$(POD_NAMESPACE)/default-controller
+            - --election-id=default-leader
+            - --controller-class=k8s.io/default
             - --ingress-class=nginx
-            - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
+            - --configmap=$(POD_NAMESPACE)/default-controller
             - --validating-webhook=:8443
             - --validating-webhook-certificate=/usr/local/certificates/cert
             - --validating-webhook-key=/usr/local/certificates/key
@@ -442,7 +439,7 @@ spec:
                   fieldPath: metadata.namespace
             - name: LD_PRELOAD
               value: /usr/local/lib/libmimalloc.so
-          image: registry.k8s.io/ingress-nginx/controller:v1.9.4@sha256:5b161f051d017e55d358435f295f5e9a297e66158f136321d9b04520ec6c48a3
+          image: registry.k8s.io/default/controller:v1.9.4@sha256:5b161f051d017e55d358435f295f5e9a297e66158f136321d9b04520ec6c48a3
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
@@ -499,47 +496,47 @@ spec:
       dnsPolicy: ClusterFirst
       nodeSelector:
         kubernetes.io/os: linux
-      serviceAccountName: ingress-nginx
+      serviceAccountName: default
       terminationGracePeriodSeconds: 300
       volumes:
         - name: webhook-cert
           secret:
-            secretName: ingress-nginx-admission
+            secretName: default-admission
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission-create
-  namespace: ingress-nginx
+  name: default-admission-create
+  
 spec:
   template:
     metadata:
       labels:
         app.kubernetes.io/component: admission-webhook
-        app.kubernetes.io/instance: ingress-nginx
-        app.kubernetes.io/name: ingress-nginx
-        app.kubernetes.io/part-of: ingress-nginx
+        app.kubernetes.io/instance: default
+        app.kubernetes.io/name: default
+        app.kubernetes.io/part-of: default
         app.kubernetes.io/version: 1.9.4
-      name: ingress-nginx-admission-create
+      name: default-admission-create
     spec:
       containers:
         - args:
             - create
-            - --host=ingress-nginx-controller-admission,ingress-nginx-controller-admission.$(POD_NAMESPACE).svc
+            - --host=default-controller-admission,default-controller-admission.$(POD_NAMESPACE).svc
             - --namespace=$(POD_NAMESPACE)
-            - --secret-name=ingress-nginx-admission
+            - --secret-name=default-admission
           env:
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20231011-8b53cabe0@sha256:a7943503b45d552785aa3b5e457f169a5661fb94d82b8a3373bcd9ebaf9aac80
+          image: registry.k8s.io/default/kube-webhook-certgen:v20231011-8b53cabe0@sha256:a7943503b45d552785aa3b5e457f169a5661fb94d82b8a3373bcd9ebaf9aac80
           imagePullPolicy: IfNotPresent
           name: create
           securityContext:
@@ -551,44 +548,44 @@ spec:
         fsGroup: 2000
         runAsNonRoot: true
         runAsUser: 2000
-      serviceAccountName: ingress-nginx-admission
+      serviceAccountName: default-admission
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission-patch
-  namespace: ingress-nginx
+  name: default-admission-patch
+  
 spec:
   template:
     metadata:
       labels:
         app.kubernetes.io/component: admission-webhook
-        app.kubernetes.io/instance: ingress-nginx
-        app.kubernetes.io/name: ingress-nginx
-        app.kubernetes.io/part-of: ingress-nginx
+        app.kubernetes.io/instance: default
+        app.kubernetes.io/name: default
+        app.kubernetes.io/part-of: default
         app.kubernetes.io/version: 1.9.4
-      name: ingress-nginx-admission-patch
+      name: default-admission-patch
     spec:
       containers:
         - args:
             - patch
-            - --webhook-name=ingress-nginx-admission
+            - --webhook-name=default-admission
             - --namespace=$(POD_NAMESPACE)
             - --patch-mutating=false
-            - --secret-name=ingress-nginx-admission
+            - --secret-name=default-admission
             - --patch-failure-policy=Fail
           env:
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20231011-8b53cabe0@sha256:a7943503b45d552785aa3b5e457f169a5661fb94d82b8a3373bcd9ebaf9aac80
+          image: registry.k8s.io/default/kube-webhook-certgen:v20231011-8b53cabe0@sha256:a7943503b45d552785aa3b5e457f169a5661fb94d82b8a3373bcd9ebaf9aac80
           imagePullPolicy: IfNotPresent
           name: patch
           securityContext:
@@ -600,40 +597,40 @@ spec:
         fsGroup: 2000
         runAsNonRoot: true
         runAsUser: 2000
-      serviceAccountName: ingress-nginx-admission
+      serviceAccountName: default-admission
 ---
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
   name: nginx
 spec:
-  controller: k8s.io/ingress-nginx
+  controller: k8s.io/default
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission
-  namespace: ingress-nginx
+  name: default-admission
+  
 spec:
   egress:
     - {}
   podSelector:
     matchLabels:
       app.kubernetes.io/component: admission-webhook
-      app.kubernetes.io/instance: ingress-nginx
-      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/instance: default
+      app.kubernetes.io/name: default
   policyTypes:
     - Ingress
     - Egress
@@ -643,18 +640,18 @@ kind: ValidatingWebhookConfiguration
 metadata:
   labels:
     app.kubernetes.io/component: admission-webhook
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: default
+    app.kubernetes.io/part-of: default
     app.kubernetes.io/version: 1.9.4
-  name: ingress-nginx-admission
+  name: default-admission
 webhooks:
   - admissionReviewVersions:
       - v1
     clientConfig:
       service:
-        name: ingress-nginx-controller-admission
-        namespace: ingress-nginx
+        name: default-controller-admission
+        namespace: default
         path: /networking/v1/ingresses
     failurePolicy: Fail
     matchPolicy: Equivalent
